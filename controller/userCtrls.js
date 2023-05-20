@@ -32,4 +32,78 @@ const loginUserCtrl = asyncHandler(async (req, res, next) => {
     }
 })
 
-module.exports = { createUser, loginUserCtrl };
+//Update a user
+const updateaUser = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    try {
+        const updateaUser = await User.findByIdAndUpdate(id, {
+            firstName: req?.body?.firstName,
+            lastName: req?.body?.lastName,
+            email: req?.body?.email,
+            mobile: req?.body?.mobile
+        }, {
+            new: true
+        });
+        res.json(updateaUser);
+    } catch (error) {
+        throw new Error(error);
+    }
+})
+
+// Get all users
+const getAllUser = async (req, res, next) => {
+    try {
+        const getUsers = await User.find();
+        res.json(getUsers);
+    } catch (error) {
+        throw new Error(error)
+    }
+}
+
+//get a single user
+const getaUser = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    const getaUser = await User.findByIdAndDelete(id);
+    if (getaUser) {
+        res.json(getaUser);
+    } else {
+        throw new Error('Invalid Credential');
+    }
+    // try {
+    //     const getaUser = await User.findById(id);
+    //     res.json({
+    //         getaUser
+    //     });
+    // } catch (error) {
+    //     throw new Error(error)
+    // }
+});
+
+//delete a single user
+const deleteaUser = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    const deleteaUser = await User.findByIdAndDelete(id);
+    if (deleteaUser) {
+        res.json(deleteaUser);
+    } else {
+        throw new Error('Invalid Credential');
+    }
+
+    // try {
+    //     const deleteaUser = await User.findByIdAndDelete(id);
+    //     res.json({
+    //         deleteaUser,
+    //     });
+    // } catch (error) {
+    //     throw new Error('Invalid Credential');
+    // }
+})
+
+module.exports = {
+    createUser,
+    loginUserCtrl,
+    getAllUser,
+    getaUser,
+    deleteaUser,
+    updateaUser
+};
