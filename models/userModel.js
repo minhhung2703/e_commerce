@@ -36,6 +36,10 @@ const userSchema = new mongoose.Schema({
     isBlock: {
         type: Boolean,
         dafault: false,
+    },
+    refreshToken: {
+        type: String,
+
     }
 }, {
     timestamps: true,
