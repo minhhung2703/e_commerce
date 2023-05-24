@@ -3,6 +3,7 @@ const connectDatabase = require("./db/Database");
 
 //Handling uncaught Exception
 process.on("uncaughtException", (err) => {
+    console.log(`Error : ${err.message}`)
     console.log("Shutting down the server for handling server for handling uncaught exception");
 })
 
